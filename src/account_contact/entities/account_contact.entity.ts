@@ -1,1 +1,12 @@
-export class AccountContact {}
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber } from 'class-validator';
+
+export class AccountContact {
+  @ApiProperty({ description: 'account PK', example: 1 })
+  @IsNumber()
+  accountId: number;
+
+  @ApiProperty({ description: 'account of contact PK', example: 1 })
+  @IsNumber()
+  contactId: number;
+}
