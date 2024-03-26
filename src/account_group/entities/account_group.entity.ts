@@ -8,11 +8,11 @@ enum role {
 export class AccountGroup {
   @ApiProperty({ description: 'account PK', example: 1 })
   @IsNumber()
-  accountId: number;
+  accountID: number;
 
   @ApiProperty({ description: 'group PK', example: 1 })
   @IsNumber()
-  groupId: number;
+  groupID: number;
 
   @ApiProperty({
     description: 'the role of account in the group',

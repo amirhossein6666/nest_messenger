@@ -11,7 +11,7 @@ import {
 export class Account {
   @ApiProperty({ description: 'account PK', example: 1 })
   @IsNumber()
-  id: number;
+  ID: number;
 
   @ApiProperty({
     description: 'account email',

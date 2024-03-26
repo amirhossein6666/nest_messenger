@@ -4,9 +4,9 @@ import { IsNumber } from 'class-validator';
 export class AccountContact {
   @ApiProperty({ description: 'account PK', example: 1 })
   @IsNumber()
-  accountId: number;
+  accountID: number;
 
   @ApiProperty({ description: 'account of contact PK', example: 1 })
   @IsNumber()
-  contactId: number;
+  contactID: number;
 }

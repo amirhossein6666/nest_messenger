@@ -8,11 +8,11 @@ enum role {
 export class AccountChannel {
   @ApiProperty({ description: 'Account PK', example: 1 })
   @IsNumber()
-  accountId: number;
+  accountID: number;
 
   @ApiProperty({ description: 'channel PK', example: 1 })
   @IsNumber()
-  channelId: number;
+  channelID: number;
 
   @ApiProperty({
     description: 'the role of account in the channel',
