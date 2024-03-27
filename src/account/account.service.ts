@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { AccountEntity } from './entities/account.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AccountService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
+  constructor(
+    @InjectRepository(AccountEntity)
+    private accountRepository: Repository<AccountEntity>,
+  ) {}
+
+  create(accountEntity: AccountEntity): Promise<AccountEntity> {
+    return this.accountRepository.save(accountEntity);
   }
 
-  findAll() {
-    return `This action returns all account`;
+  findAll(): Promise<AccountEntity[]> {
+    return this.accountRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
+  findOne(ID: number): Promise<AccountEntity | null> {
+    return this.accountRepository.findOneBy({ ID });
   }
 
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
+  async update(ID: number, accountEntity: AccountEntity): Promise<AccountEntity> {
+    await this.accountRepository.update(ID, accountEntity);
+    return this.accountRepository.findOneBy({ ID });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} account`;
+  async remove(ID: number): Promise<AccountEntity> {
+    const accountToRemove = await this.findOne(ID);
+    if (!accountToRemove) {
+      throw new NotFoundException('account not found');
+    }
+    await this.accountRepository.remove(accountToRemove);
+    return accountToRemove;
   }
 }
